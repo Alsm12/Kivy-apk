@@ -18,17 +18,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel
+        sudo apt install -y zip unzip openjdk-17-jdk python3-pip python3-setuptools python3-wheel
         pip install --user buildozer cython
 
     - name: Build APK
       run: |
-        pip install --user --upgrade buildozer
-        export PATH=$PATH:$HOME/.local/bin
+        export PATH=$HOME/.local/bin:$PATH
+        pip install --user buildozer
         buildozer android debug
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v3.1.3
-      with:
-        name: mykivyapp-debug.apk
-        path: bin/*.apk
